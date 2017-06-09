@@ -3,7 +3,7 @@
 
     $url = "https://restcountries.eu/rest/v2/";
     
-    if( isset($_POST['name'])){
+    if( isset($_POST['name']) && $_POST['name']!=""){
         $url .= "name/" . $_POST['name'];
         if(isset($_POST['isFullName']) && $_POST['isFullName']){
             $url .= "?fullText=true";
@@ -13,8 +13,8 @@
         $url .= "alpha/" . $_POST['code'];
     }
     else{
-        //dummy response.  Parameter wasn't passed in.
-        $url = "https://restcountries.eu/rest/v2/name/united";
+        //send back all countries
+        $url .= "all";
     }
 
         

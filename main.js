@@ -5,24 +5,21 @@ function OutputMessage() {
   window.alert("button clickeds");
 };
 
-function SearchBtn2_Click() {
-    debugger;
-    jQuery.ajax({
-        type: "POST",
-        url: 'RequestHandler2.php',
-        dataType: 'json',
-        data: {functionname: 'add', arguments: [1, 2]},
-        success: OnSuccess,
-        error: OnFail
-    });
-}
 
 function SearchBtn_Click() {
+    var nameStr = document.getElementById("nameInput").value;
+    var codeStr = document.getElementById("codeInput").value;
+    if(nameStr==="" && codeStr===""){
+        window.alert("Enter a name or code to search");
+        return;
+    }
+    
+    debugger;
     jQuery.ajax({
         type: "POST",
         url: 'RequestHandler.php',
         dataType: 'json',
-        data: {name: "aruba", code: "124"},
+        data: {name: nameStr, code: codeStr, isFullName: false},
         success: OnSuccess,
         error: OnFail
     });
