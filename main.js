@@ -22,7 +22,7 @@ function SearchBtn_Click() {
         type: "POST",
         url: 'RequestHandler.php',
         dataType: 'json',
-        data: {countryName: 'United', code: "124"},
+        data: {name: "aruba", code: "124"},
         success: OnSuccess,
         error: OnFail
     });
@@ -32,17 +32,15 @@ function OnSuccess(NationArray) {
     for(var idx=0; idx<NationArray.length; idx++){
         AddNationToView(NationArray[idx]);
     }
-    //window.alert(NationArray);
 }
 
 function OnFail(result) {
     debugger;
-    window.alert(result.error);
-//  window.alert(JSON.stringify(result));
+    var resultsDiv = document.getElementById('div-results');
+    resultsDiv.innerHTML += result.responseText;
 }
 
-function AddNationToView(nation){
-    
+function AddNationToView(nation){ 
     var resultsDiv = document.getElementById('div-results');
     resultsDiv.innerHTML += "<div>"+nation.name+"</div>";
 }

@@ -1,20 +1,21 @@
 <?php
     header('Content-Type: application/json');
 
-    $url = "https://restcountries.eu/rest/v2/name/united";
-
-    $x = "https://restcountries.eu/rest/v2/name/aruba?fullText=true";
+    $url = "https://restcountries.eu/rest/v2/";
     
-    if(true){
-        //search by name
+    if( isset($_POST['name'])){
+        $url = "https://restcountries.eu/rest/v2/name/" . $_POST['name'];
+        if(isset($_POST['isFullName']) && $_POST['isFullName']){
+            $url .= "?fullText=true";
+        }
+    }
+    else if(isset($_POST['code'])){
+        $url = "https://restcountries.eu/rest/v2/alpha/" . $_POST['code'];
+    }
+    else{
+        //dummy response.  Parameter wasn't passed in.
         $url = "https://restcountries.eu/rest/v2/name/united";
     }
-        
-    if(false){
-        //if by full name
-        $url += "name/aruba?fullText=true";
-    }
-    
 
         
     $curl = curl_init($url);
