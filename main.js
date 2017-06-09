@@ -2,10 +2,9 @@
 NationArray = [];
 
 function OutputMessage() {
-  //debugger;
-  //var nameStr = nameInput.value;
   window.alert("button clickeds");
 };
+
 function SearchBtn2_Click() {
     debugger;
     jQuery.ajax({
