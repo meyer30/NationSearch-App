@@ -4,13 +4,13 @@
     $url = "https://restcountries.eu/rest/v2/";
     
     if( isset($_POST['name'])){
-        $url = "https://restcountries.eu/rest/v2/name/" . $_POST['name'];
+        $url .= "name/" . $_POST['name'];
         if(isset($_POST['isFullName']) && $_POST['isFullName']){
             $url .= "?fullText=true";
         }
     }
     else if(isset($_POST['code'])){
-        $url = "https://restcountries.eu/rest/v2/alpha/" . $_POST['code'];
+        $url .= "alpha/" . $_POST['code'];
     }
     else{
         //dummy response.  Parameter wasn't passed in.
