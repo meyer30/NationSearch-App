@@ -26,7 +26,6 @@ function SearchBtn_Click() {
         type: "POST",
         url: 'RequestHandler.php',
         dataType: 'json',
-//        data: {name: nameStr, code: codeStr, isFullName: false},
         data: {searchBy: searchBy, searchVal: searchVal},
         success: OnSuccess,
         error: OnFail
