@@ -1,9 +1,29 @@
+*{
+    font-family: Arial;
+}
+
+h1 {
+  font-size: 1.2em;
+  color: #999;
+  margin-bottom: 1em;
+}
+
 img{
     max-height: 100px;
     max-width: 100px;
 }
+
+.searchButton {
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 .div-nation{
-    background-color: brown;
+    
+    background-color: #EEE;
 }
 
 
@@ -14,5 +34,9 @@ img{
 }
 
 .div-result-summary{
-    background-color: grey;
+    //background-color: grey;
+}
+
+#div-error{
+    padding: 1em 0 0 5em;
 }
