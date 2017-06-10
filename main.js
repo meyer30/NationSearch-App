@@ -13,26 +13,39 @@ function SearchBtn_Click() {
         window.alert("Enter a name or code to search");
         return;
     }
+    if(nameStr!==""){
+        var searchVal = nameStr;
+        var searchBy = "name";
+    }
+    else if(codeStr!==""){
+        searchVal=codeStr;
+        searchBy="code";
+    }
     
-    debugger;
     jQuery.ajax({
         type: "POST",
         url: 'RequestHandler.php',
         dataType: 'json',
-        data: {name: nameStr, code: codeStr, isFullName: false},
+//        data: {name: nameStr, code: codeStr, isFullName: false},
+        data: {searchBy: searchBy, searchVal: searchVal},
         success: OnSuccess,
         error: OnFail
     });
 }
 
-function OnSuccess(NationArray) {
-    for(var idx=0; idx<NationArray.length; idx++){
-        AddNationToView(NationArray[idx]);
+function OnSuccess(response) {
+    //$('#div-results').empty();
+    if(Array.isArray(response)){     
+        for(var idx=0; idx<response.length; idx++){
+            AddNationToView(response[idx]);
+        }   
+    }
+    else{
+        AddNationToView(response);
     }
 }
 
 function OnFail(result) {
-    debugger;
     var resultsDiv = document.getElementById('div-results');
     resultsDiv.innerHTML += result.responseText;
 }
