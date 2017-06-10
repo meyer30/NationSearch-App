@@ -5,6 +5,16 @@ function OutputMessage() {
   window.alert("button clickeds");
 };
 
+function SearchUnited(){
+    jQuery.ajax({
+        type: "POST",
+        url: 'RequestHandler.php',
+        dataType: 'json',
+        data: {searchBy: "name", searchVal: "united"},
+        success: OnSuccess,
+        error: OnFail
+    });
+}
 
 function SearchBtn_Click() {
     var nameStr = document.getElementById("nameInput").value;
@@ -35,19 +45,21 @@ function SearchBtn_Click() {
 function OnSuccess(response) {
     var resultsDiv = document.getElementById('div-results');
     resultsDiv.innerHTML = "";
+    var numNations;
+//At the bottom of the page show the total number of countries and    
+// list all regions and subregions contained in the results with the number of times it appeared. 
     
-//    
-// 
-//At the bottom of the page show the total number of countries and list all regions and subregions contained in the results with the number of times it appeared. 
-    
-    if(Array.isArray(response)){     
-        for(var idx=0; idx<response.length; idx++){
+    if(Array.isArray(response)){
+        numNations = response.length;
+        for(var idx=0; idx<numNations; idx++){
             AddNationToView(response[idx]);
         }   
     }
     else{
+        numNations = 1;
         AddNationToView(response);
     }
+    AddResultSummaryToView(numNations);
 }
 
 function OnFail(result) {
@@ -56,18 +68,22 @@ function OnFail(result) {
 }
 
 function AddNationToView(nation){ 
-    
-//    For each country displayed include: the full name, alpha code 2, alpha code 3, flag image (scaled to fit display), 
-//    region, subregion, population, and a list of its languages. 
     var resultsDiv = document.getElementById('div-results');
-    resultsDiv.innerHTML += "<div>"+nation.name+"</div>";
-    resultsDiv.innerHTML += "<div>"+nation.alpha2Code+"</div>";
-    resultsDiv.innerHTML += "<div>"+nation.alpha3Code+"</div>";
-    resultsDiv.innerHTML += "<img src='" +nation.flag+"'/>";
-    resultsDiv.innerHTML += "<div>"+nation.region+"</div>";
-    resultsDiv.innerHTML += "<div>"+nation.subregion+"</div>";
-    resultsDiv.innerHTML += "<div>"+nation.population+"</div>";
-        for(var idx=0; idx<nation.languages.length; idx++){
-            resultsDiv.innerHTML += "<div>"+nation.languages[idx]+"</div>";
-        }       
+    var innerhtml =  "<div class='div-nation'>";
+    innerhtml += nation.name;
+    innerhtml += "<div>"+nation.alpha2Code+"</div>";
+    innerhtml += "<div>"+nation.alpha3Code+"</div>";
+    innerhtml += "<img src='" +nation.flag+"'/>";
+    innerhtml += "<div>"+nation.region+"</div>";
+    innerhtml += "<div>"+nation.subregion+"</div>";
+    innerhtml += "<div>"+nation.population+"</div>";
+    for(var idx=0; idx<nation.languages.length; idx++){
+        innerhtml += "<div>"+nation.languages[idx].name+"</div>";
+    }       
+    resultsDiv.innerHTML += innerhtml;
+}
+
+function AddResultSummaryToView(numNations){
+    var resultSumDiv = document.getElementById("div-result-summary");
+    resultSumDiv.innerHTML = numNations;
 }
