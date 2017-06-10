@@ -23,7 +23,7 @@
             //error todo
             break;
     }
-    //$url = "https://restcountries.eu/rest/v2/all";
+    
     
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); 
@@ -51,6 +51,12 @@
         usort($jsonAry, "cmp");
         if($numNations>50){
             // todo Limit the api results to 50. 
+            $keyAry= array();
+            for($key=50; $key<$numNations; $key++){
+                $keyAry[$key]="";
+            }
+            
+            $jsonAry=array_diff_key($jsonAry,$keyAry);
         }
     }
     
