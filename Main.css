@@ -3,10 +3,10 @@ img{
     max-width: 100px;
 }
 .div-nation{
-    border: black;
     background-color: brown;
     max-width: 300px;
     margin: 1em 1em 1em 1em;
+    padding: 1em 1em 1em 1em;
 }
 
 .div-result-summary{
