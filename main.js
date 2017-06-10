@@ -1,9 +1,5 @@
 /// <reference path="jquery-3.1.1.js" />
-NationArray = [];
 
-function OutputMessage() {
-  window.alert("button clickeds");
-};
 
 function SearchUnited(){
     jQuery.ajax({
@@ -20,7 +16,7 @@ function SearchBtn_Click() {
     var nameStr = document.getElementById("nameInput").value;
     var codeStr = document.getElementById("codeInput").value;
     if(nameStr==="" && codeStr===""){
-        window.alert("Enter a name or code to search");
+        AddErrorToView("Enter a name or code to search");
         return;
     }
     if(nameStr!==""){
@@ -45,6 +41,8 @@ function SearchBtn_Click() {
 function OnSuccess(response) {
     var resultsDiv = document.getElementById('div-results');
     resultsDiv.innerHTML = "";
+    var resultSumDiv = document.getElementById("div-result-summary");
+    resultSumDiv.innerHTML = "";
     var numNations;
     var regionDict = {};
     var subregionDict = {};
@@ -68,7 +66,11 @@ function OnSuccess(response) {
             }
         }   
     }
-    else{
+    else if(response.status===404){
+        AddErrorToView("No nations found")
+        return;
+    }
+    else {
         numNations = 1;
         AddNationToView(response);
         regionDict[response[region]]=1;
@@ -108,4 +110,9 @@ function AddResultSummaryToView(numNations, regionDict, subregionDict){
         innerHtml +="<div>"+key+": "+subregionDict[key]+"</div>";
     }
     resultSumDiv.innerHTML = innerHtml;
+}
+
+function AddErrorToView(errorMessage){
+    var errorDiv = document.getElementById("div-error");
+    errorDiv.innerHTML = errorMessage;
 }
