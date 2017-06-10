@@ -46,20 +46,35 @@ function OnSuccess(response) {
     var resultsDiv = document.getElementById('div-results');
     resultsDiv.innerHTML = "";
     var numNations;
-//At the bottom of the page show the total number of countries and    
-// list all regions and subregions contained in the results with the number of times it appeared. 
-    
+    var regionDict = {};
+    var subregionDict = {};
+
     if(Array.isArray(response)){
         numNations = response.length;
         for(var idx=0; idx<numNations; idx++){
+            
             AddNationToView(response[idx]);
+            if(isNaN(regionDict[response[idx].region])){
+                regionDict[response[idx].region]=1;
+            }
+            else{
+                regionDict[response[idx].region]++;
+            }
+            if(isNaN(subregionDict[response[idx].subregion])){
+                subregionDict[response[idx].subregion]=1;
+            }
+            else{
+                subregionDict[response[idx].subregion]++;
+            }
         }   
     }
     else{
         numNations = 1;
         AddNationToView(response);
+        regionDict[response[region]]=1;
+        regionDict[response[subregion]]=1;
     }
-    AddResultSummaryToView(numNations);
+    AddResultSummaryToView(numNations, regionDict, subregionDict);
 }
 
 function OnFail(result) {
@@ -83,7 +98,14 @@ function AddNationToView(nation){
     resultsDiv.innerHTML += innerhtml;
 }
 
-function AddResultSummaryToView(numNations){
+function AddResultSummaryToView(numNations, regionDict, subregionDict){
     var resultSumDiv = document.getElementById("div-result-summary");
-    resultSumDiv.innerHTML = numNations;
+    var innerHtml=numNations;
+    for(key in regionDict){
+        innerHtml +="<div>"+key+": "+regionDict[key]+"</div>";
+    }
+    for(key in subregionDict){
+        innerHtml +="<div>"+key+": "+subregionDict[key]+"</div>";
+    }
+    resultSumDiv.innerHTML = innerHtml;
 }
