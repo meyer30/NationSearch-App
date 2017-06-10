@@ -48,7 +48,6 @@ function OnSuccess(response) {
     var numNations;
     var regionDict = {};
     var subregionDict = {};
-
     if(Array.isArray(response)){
         numNations = response.length;
         for(var idx=0; idx<numNations; idx++){
@@ -57,8 +56,8 @@ function OnSuccess(response) {
             IncrementDict(subregionDict,response[idx].subregion);
         }   
     }
-    else if(response.status===404){
-        AddErrorToView("No nations found")
+    else if(response.message!==""){
+        AddErrorToView(response.message)
         return;
     }
     else {
@@ -80,8 +79,7 @@ function IncrementDict(dict, key){
 }
 
 function OnFail(result) {
-    var resultsDiv = document.getElementById('div-results');
-    resultsDiv.innerHTML += result.responseText;
+    AddErrorToView(result.responseText);
 }
 
 function AddNationToView(nation){ 

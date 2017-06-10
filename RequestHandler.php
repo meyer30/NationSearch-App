@@ -1,14 +1,20 @@
 <?php
     header('Content-Type: application/json');
     
-    $url = "https://restcountries.eu/rest/v2/";
-
-    $searchBy=filter_input(INPUT_POST, "searchBy");
+    function sendErrorMessage($errorMessage)
+    {
+        $jsonAry['message']=$errorMessage;
+        echo json_encode($jsonAry);
+    }
+   
     $searchVal=filter_input(INPUT_POST, "searchVal");
     if($searchVal==""){
-        //todo return error message
+        sendErrorMessage("No search value found.");
+        return;
     }
-    
+
+    $url = "https://restcountries.eu/rest/v2/";    
+    $searchBy=filter_input(INPUT_POST, "searchBy");
     switch($searchBy){
         case "name":
             $url = $url . "name/" . $searchVal;
@@ -20,8 +26,8 @@
             $url .= "alpha/" . $searchVal;
             break;
         default:
-            //error todo
-            break;
+            sendErrorMessage("No search by method found.");
+            return;
     }
     
     
@@ -30,13 +36,18 @@
     $response=curl_exec($curl);
     curl_close($curl);    
     if($curl===false){
-        //todo error on querying server
+        sendErrorMessage("There was error when requesting from https://restcountries.eu");
+        return;
     }
 
     $jsonAry = json_decode($response,true);
     $numNations = count($jsonAry);
-    if($numNations>1){
-        // Filtering, sorting, and limiting should be done in PHP and the Rest Countries service        
+    if(array_key_exists('status',$jsonAry)){
+        if($jsonAry['status']==404){
+            $jsonAry['message']="No nations found.";
+        }
+    }
+    else if($numNations>1){ 
         function cmp($a, $b)
         {
             $nameCmpResult=strcmp($a['name'], $b['name']);
@@ -50,15 +61,14 @@
 
         usort($jsonAry, "cmp");
         if($numNations>50){
-            // todo Limit the api results to 50. 
             $keyAry= array();
             for($key=50; $key<$numNations; $key++){
                 $keyAry[$key]="";
             }
-            
             $jsonAry=array_diff_key($jsonAry,$keyAry);
         }
     }
+
     
     echo json_encode($jsonAry);
 ?>
