@@ -27,16 +27,35 @@
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); 
     $response=curl_exec($curl);
-    curl_close($curl);
+    curl_close($curl);    
+    if($curl===false){
+        //todo error on querying server
+    }
 
-
+    $jsonAry = json_decode($response,true);
+    $numNations = count($jsonAry);
+    if($numNations>1){
 //    The search results should be displayed on an HTML page, 
 //    and be sorted alphabetically by the country’s name and population. 
 //    
-//    Limit the api results to 50. 
 //    
-//    Filtering, sorting, and limiting should be done in PHP and the Rest Countries service
-        
+//    Filtering, sorting, and limiting should be done in PHP and the Rest Countries service        
+        function cmp($a, $b)
+        {
+            $nameCmpResult=strcmp($a['name'], $b['name']);
+            if($nameCmpResult==0){
+                return $a['population'] > $b['population'];
+            }
+            else{
+                return $nameCmpResult;
+            }
+        }
+
+        usort($jsonAry, "cmp");
+        if($numNations>50){
+            // todo Limit the api results to 50. 
+        }
+    }
     
-    echo $response;
+    echo json_encode($jsonAry);
 ?>
