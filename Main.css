@@ -5,11 +5,13 @@ img{
 .div-nation{
     border: black;
     background-color: brown;
-    margin: 1em 0 1em 0;
+    max-width: 300px;
+    margin: 1em 1em 1em 1em;
 }
 
 .div-result-summary{
     border: black;
     background-color: brown;
-    margin: 1em 0 1em 0;
+    max-width: 300px;
+    margin: 1em 1em 1em 1em;
 }
