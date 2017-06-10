@@ -1,6 +1,5 @@
 /// <reference path="jquery-3.1.1.js" />
 
-
 function SearchUnited(){
     jQuery.ajax({
         type: "POST",
@@ -46,7 +45,6 @@ function SearchBtn_Click() {
 }
 
 function OnSuccess(response) {
-    debugger;
     var numNations;
     var regionDict = {};
     var subregionDict = {};
@@ -54,20 +52,9 @@ function OnSuccess(response) {
     if(Array.isArray(response)){
         numNations = response.length;
         for(var idx=0; idx<numNations; idx++){
-            
             AddNationToView(response[idx]);
-            if(isNaN(regionDict[response[idx].region])){
-                regionDict[response[idx].region]=1;
-            }
-            else{
-                regionDict[response[idx].region]++;
-            }
-            if(isNaN(subregionDict[response[idx].subregion])){
-                subregionDict[response[idx].subregion]=1;
-            }
-            else{
-                subregionDict[response[idx].subregion]++;
-            }
+            IncrementDict(regionDict,response[idx].region);
+            IncrementDict(subregionDict,response[idx].subregion);
         }   
     }
     else if(response.status===404){
@@ -75,12 +62,21 @@ function OnSuccess(response) {
         return;
     }
     else {
-        numNations = 1;
         AddNationToView(response);
+        numNations = 1;
         regionDict[response[region]]=1;
         regionDict[response[subregion]]=1;
     }
     AddResultSummaryToView(numNations, regionDict, subregionDict);
+}
+
+function IncrementDict(dict, key){
+    if(isNaN(dict[key])){
+        dict[key]=1;
+    }
+    else{
+        dict[key]++;
+    }
 }
 
 function OnFail(result) {
