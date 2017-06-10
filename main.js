@@ -11,14 +11,11 @@ function SearchUnited(){
     });
 }
 
-function SearchBtn_Click() {
-    var resultsDiv = document.getElementById('div-results');
-    resultsDiv.innerHTML = "";
-    var resultSumDiv = document.getElementById("div-result-summary");
-    resultSumDiv.innerHTML = "";
-    var errorDiv = document.getElementById("div-error");
-    errorDiv.innerHTML = "";
 
+
+function SearchBtn_Click() {
+    ClearResults();
+    
     var nameStr = document.getElementById("nameInput").value;
     var codeStr = document.getElementById("codeInput").value;
     if(nameStr==="" && codeStr===""){
@@ -43,6 +40,15 @@ function SearchBtn_Click() {
         error: OnFail
     });
 }
+
+function ClearResults() {
+    var resultsDiv = document.getElementById('div-results');
+    resultsDiv.innerHTML = "";
+    var resultSumDiv = document.getElementById("div-result-summary");
+    resultSumDiv.innerHTML = "";
+    var errorDiv = document.getElementById("div-error");
+    errorDiv.innerHTML = "";
+}    
 
 function OnSuccess(response) {
     var numNations;
@@ -100,7 +106,7 @@ function AddNationToView(nation){
 
 function AddResultSummaryToView(numNations, regionDict, subregionDict){
     var resultSumDiv = document.getElementById("div-result-summary");
-    var innerHtml=numNations;
+    var innerHtml="<label>Number nations found: </label>" + numNations;
     for(key in regionDict){
         innerHtml +="<div>"+key+": "+regionDict[key]+"</div>";
     }
