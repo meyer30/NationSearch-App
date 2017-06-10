@@ -70,7 +70,4 @@ function AddNationToView(nation){
         for(var idx=0; idx<nation.languages.length; idx++){
             resultsDiv.innerHTML += "<div>"+nation.languages[idx]+"</div>";
         }       
-    //flag
-//:
-//"https://restcountries.eu/data/umi.svg"
 }
