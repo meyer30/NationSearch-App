@@ -13,6 +13,13 @@ function SearchUnited(){
 }
 
 function SearchBtn_Click() {
+    var resultsDiv = document.getElementById('div-results');
+    resultsDiv.innerHTML = "";
+    var resultSumDiv = document.getElementById("div-result-summary");
+    resultSumDiv.innerHTML = "";
+    var errorDiv = document.getElementById("div-error");
+    errorDiv.innerHTML = "";
+
     var nameStr = document.getElementById("nameInput").value;
     var codeStr = document.getElementById("codeInput").value;
     if(nameStr==="" && codeStr===""){
@@ -39,10 +46,7 @@ function SearchBtn_Click() {
 }
 
 function OnSuccess(response) {
-    var resultsDiv = document.getElementById('div-results');
-    resultsDiv.innerHTML = "";
-    var resultSumDiv = document.getElementById("div-result-summary");
-    resultSumDiv.innerHTML = "";
+    debugger;
     var numNations;
     var regionDict = {};
     var subregionDict = {};
