@@ -84,7 +84,7 @@ function OnFail(result) {
 
 function AddNationToView(nation){ 
     var resultsDiv = document.getElementById('div-results');
-    var innerhtml =  "<div class='div-nation'>";
+    var innerhtml =  "<div class='resultBox div-nation'>";
     innerhtml += nation.name;
     innerhtml += "<div>"+nation.alpha2Code+"</div>";
     innerhtml += "<div>"+nation.alpha3Code+"</div>";
