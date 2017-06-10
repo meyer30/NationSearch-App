@@ -23,7 +23,8 @@
             //error todo
             break;
     }
-        
+    //$url = "https://restcountries.eu/rest/v2/all";
+    
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); 
     $response=curl_exec($curl);
@@ -35,16 +36,12 @@
     $jsonAry = json_decode($response,true);
     $numNations = count($jsonAry);
     if($numNations>1){
-//    The search results should be displayed on an HTML page, 
-//    and be sorted alphabetically by the country’s name and population. 
-//    
-//    
-//    Filtering, sorting, and limiting should be done in PHP and the Rest Countries service        
+        // Filtering, sorting, and limiting should be done in PHP and the Rest Countries service        
         function cmp($a, $b)
         {
             $nameCmpResult=strcmp($a['name'], $b['name']);
             if($nameCmpResult==0){
-                return $a['population'] > $b['population'];
+                return $a['population'] < $b['population'];
             }
             else{
                 return $nameCmpResult;
