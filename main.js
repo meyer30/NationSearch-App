@@ -16,26 +16,18 @@ function SearchUnited(){
 function SearchBtn_Click() {
     ClearResults();
     
-    var nameStr = document.getElementById("nameInput").value;
-    var codeStr = document.getElementById("codeInput").value;
-    if(nameStr==="" && codeStr===""){
+    var searchMthd = document.getElementById("selSearchMethod").value;
+    var searchVal = document.getElementById("searchValInput").value;
+    
+    if(searchVal===""){
         AddErrorToView("Enter a name or code to search");
         return;
     }
-    if(nameStr!==""){
-        var searchVal = nameStr;
-        var searchBy = "name";
-    }
-    else if(codeStr!==""){
-        searchVal=codeStr;
-        searchBy="code";
-    }
-    
     jQuery.ajax({
         type: "POST",
         url: 'RequestHandler.php',
         dataType: 'json',
-        data: {searchBy: searchBy, searchVal: searchVal},
+        data: {searchBy: searchMthd, searchVal: searchVal},
         success: OnSuccess,
         error: OnFail
     });

@@ -9,27 +9,17 @@
 </head>
 <body>
     <h1>Nation Search</h1>
-    <table>
-        <tr>
-            <td><label>Name: </label></td>
-            <td><input id="nameInput" name="nameInput" type="text" /></td>
-        </tr>
-        <tr>
-            <td><label>Full Name: </label></td>
-            <td><input type="text" /></td>
-        </tr>
-        <tr>
-            <td><label>Code: </label></td>
-            <td><input id="codeInput" type="text" /></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                <input type="button" value="Search" onclick="return SearchBtn_Click();" class="searchButton" />
-                <input type="button" value="Search 'united'" onclick="return SearchUnited();" />
-            </td>
-        </tr>
-    </table>
+    <div id="div-input">
+        <select id = "selSearchMethod">
+            <option value = "name">Name</option>
+            <option value = "fullName">Full name</option>
+            <option value = "code">Code</option>
+        </select>
+        <input id="searchValInput" type="text" />
+        <input type="button" value="Search" onclick="return SearchBtn_Click();" class="searchButton" />
+    </div>
+    
+    
     <div id="div-results" class="box"></div>
     <div id="div-result-summary" class="div-result-summary resultBox"></div>
     <div id="div-error"  class="error"></div>
