@@ -82,22 +82,38 @@ function OnFail(result) {
 
 function AddNationToView(nation){ 
 
-    var innerhtml =  "<div class='resultBox div-nation'>";
-    innerhtml += nation.name;
-    innerhtml += "<div>Alpha codes:</div>";
-    innerhtml += "<div class='div-alphacode'>"+nation.alpha2Code+"</div>";
-    innerhtml += "<div class='div-alphacode'>"+nation.alpha3Code+"</div>";
-    innerhtml += "<img src='" +nation.flag+"'/>";
-    innerhtml += "<div>Region: "+nation.region+"</div>";
-    innerhtml += "<div>Subregion: "+nation.subregion+"</div>";
-    innerhtml += "<div>Population: "+nation.population+"</div>";
-    innerhtml += "<div>Languages: </div>";
+    var nationHtml =  
+        "<div class='resultBox div-nation'>" +
+            "<h2>"+nation.name+"</h2>" +
+            "<img src='" +nation.flag+"'/>" +
+            "<table>" +
+                "<tr>" +
+                    "<td>Alpha codes:</td>" +
+                    "<td>"+nation.alpha2Code+"<br/>"+nation.alpha3Code+"</td>" +
+                "</tr>"+
+                "<tr>" +
+                    "<td>Region:</td>" +
+                    "<td>"+nation.region+"</td>" +
+                "</tr>"+
+                "<tr>" +
+                    "<td>Subregion:</td>" +
+                    "<td>"+nation.subregion+"</td>" +
+                "</tr>" +
+                "<tr>" +
+                    "<td>Population:</td>" +
+                    "<td>"+nation.population+"</td>" +
+                "</tr>" +
+                "<tr>" +
+                    "<td>Languages:</td>" +
+                    "<td>";
+    
     for(var idx=0; idx<nation.languages.length; idx++){
-        innerhtml += "<div class='div-language'>"+nation.languages[idx].name+"</div>";
+        nationHtml += nation.languages[idx].name+"<br/>";
     }
+    nationHtml += "</td></tr></table></div>";
     
     var resultsDiv = document.getElementById('div-results');
-    resultsDiv.innerHTML += innerhtml;
+    resultsDiv.innerHTML += nationHtml;
 }
 
 function AddResultSummaryToView(numNations, regionDict, subregionDict){

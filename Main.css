@@ -7,6 +7,15 @@ h1 {
   color: #999;
   margin-bottom: 1em;
 }
+h2 {
+  font-size: 1em;
+  color: #999;
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+}
+td {
+    vertical-align: text-top;
+}
 
 img{
     max-height: 100px;
@@ -33,21 +42,10 @@ img{
     padding: 1em 1em 1em 1em;
 }
 
-.div-result-summary{
+.div-region, .div-subregion{
+    padding-left: 1em;
+}
 
-}
-.div-alphacode{
-    padding-left: 1em;
-}
-.div-language{
-    padding-left: 1em;
-}
-.div-region{
-    padding-left: 1em;
-}
-.div-subregion{
-    padding-left: 1em;
-}
 
 #div-error{
     padding: 1em 0 0 5em;
