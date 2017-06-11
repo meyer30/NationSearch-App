@@ -30,11 +30,14 @@ img{
   cursor: pointer;
 }
 
-.div-nation{
-    
-    background-color: #EEE;
+.div-input{
+  padding-left: 1em;
+
 }
 
+.div-nation{  
+  background-color: #EEE;
+}
 
 .resultBox{
     max-width: 300px;
@@ -45,7 +48,6 @@ img{
 .div-region, .div-subregion{
     padding-left: 1em;
 }
-
 
 #div-error{
     padding: 1em 0 0 5em;
