@@ -40,7 +40,7 @@ function OnSuccess(response) {
             IncrementDict(subregionDict,response[idx].subregion);
         }   
     }
-    else if(response.message!==""){
+    else if(response.message!==undefined){
         AddErrorToView(response.message)
         return;
     }
