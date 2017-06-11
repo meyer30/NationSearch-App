@@ -44,8 +44,8 @@ function SearchBtn_Click() {
 function ClearResults() {
     var resultsDiv = document.getElementById('div-results');
     resultsDiv.innerHTML = "";
-    var resultSumDiv = document.getElementById("div-result-summary");
-    resultSumDiv.innerHTML = "";
+    var resultSumDiv = document.getElementById("div-result-summary");    
+    resultSumDiv = document.getElementById("div-result-summary")
     var errorDiv = document.getElementById("div-error");
     errorDiv.innerHTML = "";
 }    
@@ -89,29 +89,35 @@ function OnFail(result) {
 }
 
 function AddNationToView(nation){ 
-    var resultsDiv = document.getElementById('div-results');
+
     var innerhtml =  "<div class='resultBox div-nation'>";
     innerhtml += nation.name;
-    innerhtml += "<div>"+nation.alpha2Code+"</div>";
-    innerhtml += "<div>"+nation.alpha3Code+"</div>";
+    innerhtml += "<div>Alpha codes:</div>";
+    innerhtml += "<div class='div-alphacode'>"+nation.alpha2Code+"</div>";
+    innerhtml += "<div class='div-alphacode'>"+nation.alpha3Code+"</div>";
     innerhtml += "<img src='" +nation.flag+"'/>";
-    innerhtml += "<div>"+nation.region+"</div>";
-    innerhtml += "<div>"+nation.subregion+"</div>";
-    innerhtml += "<div>"+nation.population+"</div>";
+    innerhtml += "<div>Region: "+nation.region+"</div>";
+    innerhtml += "<div>Subregion: "+nation.subregion+"</div>";
+    innerhtml += "<div>Population: "+nation.population+"</div>";
+    innerhtml += "<div>Languages: </div>";
     for(var idx=0; idx<nation.languages.length; idx++){
-        innerhtml += "<div>"+nation.languages[idx].name+"</div>";
-    }       
+        innerhtml += "<div class='div-language'>"+nation.languages[idx].name+"</div>";
+    }
+    
+    var resultsDiv = document.getElementById('div-results');
     resultsDiv.innerHTML += innerhtml;
 }
 
 function AddResultSummaryToView(numNations, regionDict, subregionDict){
     var resultSumDiv = document.getElementById("div-result-summary");
-    var innerHtml="<label>Number nations found: </label>" + numNations;
+    var innerHtml="<label>Number nations: </label>" + numNations +"<br/>";
+    innerHtml+="<label>Regions appearing: </label><br/>";
     for(key in regionDict){
-        innerHtml +="<div>"+key+": "+regionDict[key]+"</div>";
+        innerHtml +="<div class='div-region'>"+key+": "+regionDict[key]+"</div>";
     }
+    innerHtml+="<label>Subregions: appearing</label><br/>";
     for(key in subregionDict){
-        innerHtml +="<div>"+key+": "+subregionDict[key]+"</div>";
+        innerHtml +="<div class='div-subregion'>"+key+": "+subregionDict[key]+"</div>";
     }
     resultSumDiv.innerHTML = innerHtml;
 }

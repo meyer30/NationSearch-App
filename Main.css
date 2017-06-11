@@ -34,7 +34,19 @@ img{
 }
 
 .div-result-summary{
-    //background-color: grey;
+
+}
+.div-alphacode{
+    padding-left: 1em;
+}
+.div-language{
+    padding-left: 1em;
+}
+.div-region{
+    padding-left: 1em;
+}
+.div-subregion{
+    padding-left: 1em;
 }
 
 #div-error{
