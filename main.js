@@ -23,7 +23,7 @@ function ClearResults() {
     var resultsDiv = document.getElementById('div-results');
     resultsDiv.innerHTML = "";
     var resultSumDiv = document.getElementById("div-result-summary");    
-    resultSumDiv = document.getElementById("div-result-summary")
+    resultSumDiv.innerHTML="";
     var errorDiv = document.getElementById("div-error");
     errorDiv.innerHTML = "";
 }    

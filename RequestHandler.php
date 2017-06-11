@@ -53,26 +53,28 @@
 
     $jsonAry = json_decode($response,true);
     if($jsonAry==null){
-        sendErrorMessage("There was error when converting the response from https://restcountries.eu to json");
+        sendErrorMessage($response);
         return;
     }
-    $numNations = count($jsonAry);
+    
     if(array_key_exists('status',$jsonAry)){
         if($jsonAry['status']==404){
             $jsonAry['message']="No nations found.";
         }
     }
-    else if($numNations>1){ 
-        usort($jsonAry, "cmpNations");
-        if($numNations>50){
-            $keyAry= array();
-            for($key=50; $key<$numNations; $key++){
-                $keyAry[$key]="";
-            }
-            $jsonAry=array_diff_key($jsonAry,$keyAry);
+    else if($searchBy=="name"){ 
+        $numNations = count($jsonAry);
+        if($numNations>1){
+            usort($jsonAry, "cmpNations");
+            if($numNations>50){
+                $keyAry= array();
+                for($key=50; $key<$numNations; $key++){
+                    $keyAry[$key]="";
+                }
+                $jsonAry=array_diff_key($jsonAry,$keyAry);
+            }            
         }
     }
-
     
     echo json_encode($jsonAry);
 ?>
