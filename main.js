@@ -1,18 +1,4 @@
 /// <reference path="jquery-3.1.1.js" />
-
-function SearchUnited(){
-    jQuery.ajax({
-        type: "POST",
-        url: 'RequestHandler.php',
-        dataType: 'json',
-        data: {searchBy: "name", searchVal: "united"},
-        success: OnSuccess,
-        error: OnFail
-    });
-}
-
-
-
 function SearchBtn_Click() {
     ClearResults();
     
@@ -117,16 +103,19 @@ function AddNationToView(nation){
 }
 
 function AddResultSummaryToView(numNations, regionDict, subregionDict){
-    var resultSumDiv = document.getElementById("div-result-summary");
-    var innerHtml="<label>Number nations: </label>" + numNations +"<br/>";
-    innerHtml+="<label>Regions appearing: </label><br/>";
+    
+    var innerHtml=
+        "<label>Number nations: </label>" + numNations +"<br/>" +
+        "<label>Regions appearing: </label><br/>";
     for(key in regionDict){
         innerHtml +="<div class='div-region'>"+key+": "+regionDict[key]+"</div>";
     }
-    innerHtml+="<label>Subregions: appearing</label><br/>";
+    innerHtml+="<label>Subregions appearing:</label><br/>";
     for(key in subregionDict){
         innerHtml +="<div class='div-subregion'>"+key+": "+subregionDict[key]+"</div>";
     }
+    
+    var resultSumDiv = document.getElementById("div-result-summary");
     resultSumDiv.innerHTML = innerHtml;
 }
 
