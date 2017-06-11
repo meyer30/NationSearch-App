@@ -6,6 +6,17 @@
         $jsonAry['message']=$errorMessage;
         echo json_encode($jsonAry);
     }
+    
+    function cmpNations($a, $b)
+    {
+        $nameCmpResult=strcmp($a['name'], $b['name']);
+        if($nameCmpResult==0){
+            return $a['population'] < $b['population'];
+        }
+        else{
+            return $nameCmpResult;
+        }
+    }
    
     $searchVal=filter_input(INPUT_POST, "searchVal");
     if($searchVal==""){
@@ -41,6 +52,10 @@
     }
 
     $jsonAry = json_decode($response,true);
+    if($jsonAry==null){
+        sendErrorMessage("There was error when converting the response from https://restcountries.eu to json");
+        return;
+    }
     $numNations = count($jsonAry);
     if(array_key_exists('status',$jsonAry)){
         if($jsonAry['status']==404){
@@ -48,18 +63,7 @@
         }
     }
     else if($numNations>1){ 
-        function cmp($a, $b)
-        {
-            $nameCmpResult=strcmp($a['name'], $b['name']);
-            if($nameCmpResult==0){
-                return $a['population'] < $b['population'];
-            }
-            else{
-                return $nameCmpResult;
-            }
-        }
-
-        usort($jsonAry, "cmp");
+        usort($jsonAry, "cmpNations");
         if($numNations>50){
             $keyAry= array();
             for($key=50; $key<$numNations; $key++){
